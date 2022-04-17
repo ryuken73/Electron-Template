@@ -31,8 +31,8 @@
     ]
   },
   "build": {
-    "productName": "sendFile",
-    "appId": "co.sbs.sendFile",
+    "productName": "react-electron-template",
+    "appId": "co.sbs.electron-template",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -90,9 +90,9 @@
       "./assets/**"
     ],
     "publish": {
-      "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "provider": "generic",
+      "owner": "ryuken73",
+      "url": "https://github.sbs.co.kr/ryuken73"
     }
   },
   "repository": {
