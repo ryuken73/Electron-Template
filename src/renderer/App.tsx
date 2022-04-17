@@ -8,45 +8,50 @@ import Config from 'renderer/Components/Pages/Config'
 import DnD from 'renderer/Components/Common/DnD';
 import styled from 'styled-components';
 
-const AppContainer = styled.div`
+const BasicBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border: grey 1px solid;
+  box-sizing: border-box;
+  border-collapse: collapse;
+  font-size: calc(10px + 2vmin);
+`
+
+const AppContainer = styled(BasicBox)`
   text-align: center;
   background-color: #282c34;
-  display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
   color: white;
-  height: 100%;
-  border: white 2px solid;
-  box-sizing: border-box;
 `
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const HeaderContainer = styled(BasicBox)`
   height: 100px;
+  margin-bottom: -1px;
 `
-const BodyContainer = styled.div`
-  display: flex;
+const BodyContainer = styled(BasicBox)`
   flex-direction: row;
-  align-items: center;
   justify-content: flex-start;
-  width: 100%;
-  height: 100%;
+  margin-left: -1px;
+  margin-right: -1px;
 `
-const FooterContainer = styled.div`
+const FooterContainer = styled(BasicBox)`
   height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: auto;
+  margin-top: -1px;
 `
-const LeftPane = styled.div`
+const LeftPane = styled(BasicBox)`
   flex: 1;
+  flex-direction: column;
+  font-size: calc(1px + 2vmin);
+  margin-left: -1px;
 `;
-const CenterPane = styled.div`
+const CenterPane = styled(BasicBox)`
   flex: 9;
+  flex-direction: column;
+  font-size: calc(1px + 2vmin);
+  margin-right: -1px;
 `;
 const Index = () => {
   return <div>index</div>
