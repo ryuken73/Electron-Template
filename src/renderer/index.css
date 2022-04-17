@@ -48,7 +48,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   /* background-color: #030024; */
-  background-color: black;
+  /* background-color: black; */
+  background-color: #282c34;
 }
 
 /*
