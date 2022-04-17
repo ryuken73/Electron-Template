@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const Send = props => {
   return (
-    <div>send</div>
+    <div>
+      <div>send</div>
+      <Outlet></Outlet>
+    </div>
   )
 }
 

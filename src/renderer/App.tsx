@@ -2,6 +2,7 @@ import {Routes, Route, useParams, useLocation} from 'react-router-dom';
 import Header from 'renderer/Components/Header';
 import Home from 'renderer/Components/Pages/Home';
 import Send from 'renderer/Components/Pages/Send'
+import SendItem from 'renderer/Components/Pages/Send/SendItem'
 import Receive from 'renderer/Components/Pages/Receive'
 import History from 'renderer/Components/Pages/History'
 import Config from 'renderer/Components/Pages/Config'
@@ -65,6 +66,7 @@ const Footer = () => {
 export default function App() {
   const params = useParams();
   const location = useLocation();
+  const { pathname } = location;
   console.log(params, location)
   return (
     <AppContainer>
@@ -72,23 +74,28 @@ export default function App() {
         <Header />
       </HeaderContainer>
       <BodyContainer>
-        <LeftPane>
-          <div>left pane</div>
-          <Routes>
-            <Route index element={<Index />} />
-            <Route path="/index.html" element={<Home />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </LeftPane>
+        {pathname !== '/history' && (
+          <LeftPane>
+            <div>left pane</div>
+            <Routes>
+              <Route index element={<Index />} />
+              <Route path="/index.html" element={<Home />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </LeftPane>
+        )}
         <CenterPane>
           <div>center pane</div>
           <Routes>
             <Route index element={<Index />} />
             <Route path="/index.html" element={<Home />} />
-            {/* <Route path="/send" render={(routerProps)=><Send {...routerProps} />} />
-            <Route path="/receive" render={(routerProps)=><Receive {...routerProps} />} />
-            <Route path="/history" render={(routerProps)=><History {...routerProps} />} />
-            <Route path="/config" render={(routerProps)=><Config {...routerProps} />} /> */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/send" element={<Send />}>
+              <Route path=":sendId" element={<SendItem />} />
+            </Route>
+            <Route path="/receive" element={<Receive />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/config" element={<Config />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </CenterPane>
