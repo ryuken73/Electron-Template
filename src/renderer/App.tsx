@@ -9,6 +9,10 @@ import History from 'renderer/Components/Pages/History'
 import Config from 'renderer/Components/Pages/Config'
 import DnD from 'renderer/Components/Common/DnD';
 import styled from 'styled-components';
+import constants from 'renderer/config/constants';
+import useSocketIO from 'renderer/hooks/useSocketIO';
+
+const { SOCKET_SERVER_URL } = constants;
 
 const BasicBox = styled.div`
   display: flex;
@@ -67,8 +71,13 @@ const Footer = () => {
 const IP = '127.0.0.1';
 const PORT = 7000;
 export default function App() {
+  const [connected, setSocketConnected] = React.useState(false);
   const params = useParams();
   const location = useLocation();
+  const { socket } = useSocketIO({
+    hostAddress: SOCKET_SERVER_URL,
+    setSocketConnected,
+  });
   const { pathname } = location;
   console.log(params, location)
   const handleProgress = React.useCallback(props => {
@@ -79,11 +88,11 @@ export default function App() {
     window.electron.util
     .tcpPing(IP, PORT)
       .then((result) => {
-        result && alert(`webserver is ready on ${IP}:${PORT}`);
+        result && console.log(`webserver is ready on ${IP}:${PORT}`);
         return true;
       })
       .catch((error) => {
-        alert(`webserver is not ready on ${IP}:${PORT}`);
+        console.log(`webserver is not ready on ${IP}:${PORT}`);
       });
     window.electron.ipcRenderer.on('progress', handleProgress)
   },[])

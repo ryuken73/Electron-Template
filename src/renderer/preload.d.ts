@@ -3,6 +3,7 @@ declare global {
     electron: {
       util: {
         tcpPing(ip: string, port: number): Promise<boolean>;
+        getHostInfo(): object;
       };
       ipcRenderer: {
         myPing(): void;

@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 const tcpp = require('tcp-ping');
+const os = require('os');
 
 contextBridge.exposeInMainWorld('electron', {
   util: {
@@ -13,6 +14,12 @@ contextBridge.exposeInMainWorld('electron', {
           resolve(available);
         });
       });
+    },
+    getHostInfo() {
+      return {
+        hostname: os.hostname(),
+        ipAddresses: os.networkInterfaces()
+      };
     },
   },
   ipcRenderer: {
