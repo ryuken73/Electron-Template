@@ -35,4 +35,11 @@ server.post('/sendFile/:fname', (req, res) => {
 
 server.listen(7000, () => {
   console.log(`listening ${server.name}: ${server.url}`);
+  setInterval(() => {
+    process.send({
+      type: 'progress',
+      clientId: 'ryuken',
+      progress: (Math.random()*100).toFixed(0),
+    });
+  },1000)
 });

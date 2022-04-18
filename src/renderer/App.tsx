@@ -1,3 +1,4 @@
+import React from 'react';
 import {Routes, Route, useParams, useLocation} from 'react-router-dom';
 import Header from 'renderer/Components/Header';
 import Home from 'renderer/Components/Pages/Home';
@@ -63,11 +64,29 @@ const NotFound = () => {
 const Footer = () => {
   return <div>footer</div>
 }
+const IP = '127.0.0.1';
+const PORT = 7000;
 export default function App() {
   const params = useParams();
   const location = useLocation();
   const { pathname } = location;
   console.log(params, location)
+  const handleProgress = React.useCallback(props => {
+    const {clientId, progress} = props;
+    console.log(`progress event: ${clientId}, ${progress}`);
+  },[])
+  React.useEffect(() => {
+    window.electron.util
+    .tcpPing(IP, PORT)
+      .then((result) => {
+        result && alert(`webserver is ready on ${IP}:${PORT}`);
+        return true;
+      })
+      .catch((error) => {
+        alert(`webserver is not ready on ${IP}:${PORT}`);
+      });
+    window.electron.ipcRenderer.on('progress', handleProgress)
+  },[])
   return (
     <AppContainer>
       <HeaderContainer>

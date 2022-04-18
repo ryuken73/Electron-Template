@@ -246,7 +246,8 @@
     "react-split-pane": "^0.1.92",
     "redux-logger": "^3.0.6",
     "socket.io-client": "^4.4.1",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "tcp-ping": "^0.1.1"
   },
   "devEngines": {
     "node": ">=14.x",

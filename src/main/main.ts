@@ -143,5 +143,12 @@ app
     webServer.on('error', (error) => console.log(`error:`, error));
     webServer.on('spawn', () => console.log(`spawn:`, webServer.pid));
     webServer.stdout?.on('data', data => console.log('data from stdin:', data.toString()));
+    // message from webServer
+    webServer.on('message', data => {
+      const { type, clientId, progress } = data;
+      if (type === 'progress') {
+        mainWindow.webContents.send(type, { clientId, progress });
+      }
+    });
   })
   .catch(console.log);

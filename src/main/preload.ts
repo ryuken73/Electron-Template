@@ -1,13 +1,28 @@
 import { contextBridge, ipcRenderer } from 'electron';
+const tcpp = require('tcp-ping');
 
 contextBridge.exposeInMainWorld('electron', {
+  util: {
+    async tcpPing(ip: string, port: number) {
+      return new Promise((resolve, reject) => {
+        tcpp.probe(ip, port, (err, available: boolean) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(available);
+        });
+      });
+    },
+  },
   ipcRenderer: {
+    appName: 'template',
     myPing() {
       ipcRenderer.send('ipc-example', 'ping');
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     on(channel: string, func: (...args: any[]) => void) {
-      const validChannels = ['ipc-example'];
+      const validChannels = ['ipc-example', 'progress'];
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.on(channel, (_event, ...args) => func(...args));
